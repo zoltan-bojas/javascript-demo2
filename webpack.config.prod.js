@@ -44,7 +44,8 @@ export default {
               keepClosingSlash: true,
               minifyJS: true,
               minifyCSS: true
-          }
+          },
+          conditionProd: 'true'
       }),
 
       //create separate bundle

@@ -4,6 +4,10 @@
 </head>
 <body>
     <h1>Users</h1>
+
+    <% if (htmlWebpackPlugin.options.conditionProd) { %>
+        <h1>Hey, it's prod! conditionProd: <%=htmlWebpackPlugin.options.conditionProd%></h1>
+    <% } %>
     <table>
         <thead>
             <th>&nbsp;</th>
