@@ -6,14 +6,15 @@ export default {
   debug: true,
   devtool: 'source-map',
   noInfo: false,
-  entry: [
-    path.resolve(__dirname, 'src/index')
-  ],
+  entry: {
+    main: path.resolve(__dirname, 'src/index'),
+    vendor: path.resolve(__dirname, 'src/vendor')
+  },
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   plugins: [
       //Eliminate duplicate packages when generating bundle
@@ -25,8 +26,24 @@ export default {
       //adding index.html to the prod build
       new HtmlWebpackPlugin({
           template: 'src/index.html',
-          inject: true
+          inject: true,
+          minify : {
+              removeComments: true,
+              collapseWhitespace: true,
+              useShortDoctype: true,
+              removeEmptyAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              keepClosingSlash: true,
+              minifyJS: true,
+              minifyCSS: true
+          }
+      }),
+
+      //create separate bundle
+      new webpack.optimize.CommonsChunkPlugin({
+          name: 'vendor'
       })
+
   ],
   module: {
     loaders: [
